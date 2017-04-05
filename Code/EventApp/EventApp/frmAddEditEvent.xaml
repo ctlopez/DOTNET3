@@ -1,0 +1,69 @@
+﻿<Window x:Class="EventApp.frmAddEditEvent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventApp"
+        mc:Ignorable="d"
+        Title="Add Event" Height="300" Width="350" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="bedico.ico">
+    <Grid Background="#DDD">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+        <Label Name="lblName" Grid.Row="0" Grid.Column="0" Content="Name:" VerticalAlignment="Bottom" Padding="5 0 0 0"/>
+        <TextBox Name="txtName" Grid.Row="1" Grid.Column="0" Margin="3 3 3 3" FontSize="10"/>
+        <Label Name="lblDate" Grid.Row="2" Grid.Column="0" Content="Date:" VerticalAlignment="Bottom" Padding="5 0 0 0"/>
+        <DatePicker Name="txtDate" Grid.Row="3" Grid.Column="0" Margin="3 3 3 3" FontSize="10"/>
+        <Label Name="lblTime" Grid.Row="4" Grid.Column="0" Content="Time:" VerticalAlignment="Bottom" Padding="5 0 0 0"/>
+        <Grid Grid.Row="5" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox Name="cboHour" Grid.Column="0" Margin="3 3 3 3" FontSize="10" MaxDropDownHeight="100" />
+            <Label Name="lblColon" Grid.Column="1" Content=":" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0"/>
+            <ComboBox Name="cboMinute" Grid.Column="2" Margin="3 3 3 3" FontSize="10" MaxDropDownHeight="100"/>
+            <ComboBox Name="cboAmPm" Grid.Column="3" Margin="3 3 3 3" FontSize="10" />
+        </Grid>
+        <Label Name="lblLocation" Grid.Row="0" Grid.Column="2" Content="Location:" VerticalAlignment="Bottom" Padding="5 0 0 0"/>
+        <TextBox x:Name="txtLocation" Grid.Row="1" Grid.Column="2" Margin="3 3 3 3" FontSize="10"/>
+        <Label Name="lblMaxSeats" Grid.Row="2" Grid.Column="2" Content="Max Seats:" VerticalAlignment="Bottom" Padding="5 0 0 0"/>
+        <TextBox x:Name="txtMaxSeats" Grid.Row="3" Grid.Column="2" Margin="3 3 3 3" FontSize="10"/>
+        <Label Name="lblPrice" Grid.Row="4" Grid.Column="2" Content="Price:" VerticalAlignment="Bottom" Padding="5 0 0 0"/>
+        <TextBox x:Name="txtPrice" Grid.Row="5" Grid.Column="2" Margin="3 3 3 3" FontSize="10" LostFocus="txtPrice_LostFocus"/>
+        <Label x:Name="lblDescription" Grid.Row="6" Grid.Column="0" Content="Description:" VerticalAlignment="Bottom" Padding="5 0 0 0"/>
+        <TextBox x:Name="txtDescription" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="3 3 3 3" MaxLength="300"/>
+        <Button x:Name="btnAdd" Grid.Row="8" Grid.Column="0" Content="Add Event" Width="Auto" Margin="50 4 0 0" IsDefault="True" Click="btnAdd_Click" />
+        <Button x:Name="btnCancel" Grid.Row="8" Grid.Column="2" Content="Cancel" Width="Auto" Margin="0 4 50 0" IsCancel="True" />
+
+        <Grid Grid.Row="6" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblActive" VerticalAlignment="Center" Content="Active:" Padding="5 0 0 0" Visibility="Hidden"/>
+            <ComboBox x:Name="cboActive" Grid.Column="1" Margin="3 3 50 3" FontSize="10" Visibility="Hidden">
+                <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="No" />
+            </ComboBox>
+        </Grid>
+        
+    </Grid>
+</Window>

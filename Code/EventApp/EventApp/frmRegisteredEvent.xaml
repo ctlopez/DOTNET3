@@ -1,0 +1,105 @@
+﻿<Window x:Class="EventApp.frmRegisteredEvent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventApp"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Registered Event" Height="400" Width="300" Loaded="Window_Loaded" Icon="bedico.ico">
+    <Grid Background="#DDD">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Name="lblNum" Grid.Row="1" Content="Event Number: ####" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblName" Grid.Column="0" Content="Name:" VerticalAlignment="Bottom" Padding="10 10 0 0"/>
+            <Label Name="lblLocation" Grid.Column="1" Content="Location:" VerticalAlignment="Bottom" Padding="5 10 0 0"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblEventName" Grid.Column="0" Content="EventName" Padding="10 5 5 5"/>
+            <Label Name="lblEventLocation" Grid.Column="1" Content="EventLocation" />
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblDate" Grid.Column="0" Content="Date:" VerticalAlignment="Bottom" Padding="10 10 0 0"/>
+            <Label Name="lblSeatsReserved" Grid.Column="1" Content="Seats Reserved:" VerticalAlignment="Bottom" Padding="5 10 0 0" />
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblEventDate" Grid.Column="0" Content="EventDate" Padding="10 5 5 5"/>
+            <Label Name="lblEventSeatsReserved" Grid.Column="1" Content="EventSeatsReserved" />
+        </Grid>
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblTime" Grid.Column="0" Content="Time:" VerticalAlignment="Bottom" Padding="10 10 0 0" />
+            <Label Name="lblTotalPrice" Grid.Column="1" Content="Total Price:" VerticalAlignment="Bottom" Padding="5 10 0 0" />
+        </Grid>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblEventTime" Grid.Column="0" Content="EventTime" Padding="10 5 5 5"/>
+            <Label Name="lblEventTotalPrice" Grid.Column="1" Content="EventTotalPrice" />
+        </Grid>
+        <Grid Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblPrice" Grid.Column="0" Content="Price:" VerticalAlignment="Bottom" Padding="10 10 0 0" />
+            <Label Name="lblDescription" Grid.Column="1" Content="Description: " VerticalAlignment="Bottom" />
+        </Grid>
+        <Grid Grid.Row="9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblEventPrice" Grid.Column="0" Content="EventPrice" VerticalAlignment="Top" Padding="10 5 5 5"/>
+            <TextBlock Name="txtEventDesc" Grid.Column="1" Text="EventDescription" TextWrapping="WrapWithOverflow" Margin="0 0 10 0"/>
+        </Grid>
+
+        
+        <Grid Grid.Row="11" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Name="btnBack" Grid.Row="12" Content="Back" IsCancel="True" Margin="50 2 5 2"/>
+            <Button Name="btnCancelTickets" Grid.Column="4" Content="Cancel Tickets" Margin="5 2 50 2" Click="btnCancelTickets_Click"/>
+        </Grid>
+
+        <Label  Name="lblNotLoggedIn" Grid.Row="13" Content="Please log in to purchase tickets" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="0 0 5 0"
+                Margin="0 0 20 0" FontSize="10" Visibility="Hidden"/>
+
+    </Grid>
+</Window>
