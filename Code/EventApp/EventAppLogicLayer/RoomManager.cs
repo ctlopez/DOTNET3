@@ -8,7 +8,7 @@ using EventAppDataObjects;
 
 namespace EventAppLogicLayer
 {
-    public class RoomManager
+    public class RoomManager : IRoomManager
     {
         public bool CheckIfPurchasedAlready(string RoomID, int EventID)
         {

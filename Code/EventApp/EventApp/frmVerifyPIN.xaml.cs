@@ -22,9 +22,9 @@ namespace EventApp
     public partial class frmVerifyPIN : Window
     {
         Guest _guest;
-        GuestManager _gm;
+        IGuestManager _gm;
 
-        public frmVerifyPIN(Guest guest, GuestManager gm)
+        public frmVerifyPIN(Guest guest, IGuestManager gm)
         {
             InitializeComponent();
             _guest = guest;

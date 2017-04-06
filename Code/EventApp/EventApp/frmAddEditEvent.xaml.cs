@@ -21,11 +21,11 @@ namespace EventApp
     /// </summary>
     public partial class frmAddEditEvent : Window
     {
-        private EventAppLogicLayer.EventManager _eventManager;
+        private IEventManager _eventManager;
         private User _user;
         private Event _event;
 
-        public frmAddEditEvent(EventAppLogicLayer.EventManager em, User user, Event e = null)
+        public frmAddEditEvent(IEventManager em, User user, Event e = null)
         {
             InitializeComponent();
             _eventManager = em;

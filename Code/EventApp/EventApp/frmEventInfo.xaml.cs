@@ -23,11 +23,11 @@ namespace EventApp
     {
         private Event _event;
         private Guest _guest;
-        private EventAppLogicLayer.EventManager _eventManager;
-        private RoomManager _roomManager;
+        private IEventManager _eventManager;
+        private IRoomManager _roomManager;
         private string thanks = "Thank you! Your purchase has been charged to your room.";
 
-        public frmEventInfo(Event selectedEvent, Guest guest, EventAppLogicLayer.EventManager em, RoomManager rm)
+        public frmEventInfo(Event selectedEvent, Guest guest, IEventManager em, IRoomManager rm)
         {
             InitializeComponent();
             _event = selectedEvent;

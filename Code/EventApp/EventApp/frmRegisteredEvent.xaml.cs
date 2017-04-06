@@ -22,13 +22,13 @@ namespace EventApp
     public partial class frmRegisteredEvent : Window
     {
         private RoomEvent _roomEvent;
-        private EventAppLogicLayer.EventManager _em;
+        private IEventManager _em;
         private Event _event;
         private Guest _guest;
-        private GuestManager _gm;
-        private RoomManager _rm;
+        private IGuestManager _gm;
+        private IRoomManager _rm;
 
-        public frmRegisteredEvent(RoomEvent rmEvnt, Guest guest, EventAppLogicLayer.EventManager em, GuestManager gm, RoomManager rm)
+        public frmRegisteredEvent(RoomEvent rmEvnt, Guest guest, IEventManager em, IGuestManager gm, IRoomManager rm)
         {
             InitializeComponent();
             _roomEvent = rmEvnt;

@@ -23,16 +23,20 @@ namespace EventApp
     {
         private User _user;
         private Guest _guest;
+        private IRoomManager _roomManager;
+        private IUserManager _userManager;
         private bool isGuest = false;
         private string samePassErr = "You must make a new password.";
         private string difPassErr = "New Password and Confirmed Password must match.";
         private string err = "Update Failed. Recheck passwords and try again.";
 
-        public frmChangePassword(User user, Guest guest)
+        public frmChangePassword(User user, Guest guest, IRoomManager roomManager, IUserManager userManager)
         {
             InitializeComponent();
             _user = user;
             _guest = guest;
+            _roomManager = roomManager;
+            _userManager = userManager;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -68,8 +72,7 @@ namespace EventApp
             {
                 if (isGuest)
                 {
-                    var rmMgr = new RoomManager();
-                    if(rmMgr.UpdatePIN(_guest.RoomID, oldPassword, newPassword))
+                    if(_roomManager.UpdatePIN(_guest.RoomID, oldPassword, newPassword))
                     {
                         MessageBox.Show("PIN updated.");
                         this.Close();
@@ -81,8 +84,8 @@ namespace EventApp
                 }
                 else //emp using, not guest
                 {
-                    var usrMgr = new UserManager();
-                    if(usrMgr.UpdateUserPassword(_user.EmployeeID, oldPassword, newPassword))
+                    
+                    if(_userManager.UpdateUserPassword(_user.EmployeeID, oldPassword, newPassword))
                     {
                         MessageBox.Show("Password updated.");
                         this.Close();

@@ -24,15 +24,17 @@ namespace EventApp
         public User user { get; set; }
         public Guest guest { get; set; }
         private string type;
-        private RoomManager _roomManager;
-        private GuestManager _guestManager;
+        private IRoomManager _roomManager;
+        private IGuestManager _guestManager;
+        private IUserManager _userManager;
 
-        public frmEmpLogin(RoomManager rm, GuestManager gm, string usage = "default")
+        public frmEmpLogin(IRoomManager rm, IGuestManager gm, IUserManager userManager, string usage = "default")
         {
             InitializeComponent();
             type = usage;
             _roomManager = rm;
             _guestManager = gm;
+            _userManager = userManager;
 
             // If an employee is entering guest credentials to perform tasks
             // on behalf of the guest
@@ -56,7 +58,7 @@ namespace EventApp
         {
             var username = txtUsername.Text; // could also be room number
             var password = txtPassword.Password; // could also be room PIN
-            var usrMgr = new UserManager();
+            
             
             if (type == "rooms")
             {
@@ -96,7 +98,7 @@ namespace EventApp
             {
                 try
                 {
-                    user = usrMgr.AuthenticateUser(username, password);
+                    user = _userManager.AuthenticateUser(username, password);
                     this.DialogResult = true;
                 }
                 catch (Exception ex)

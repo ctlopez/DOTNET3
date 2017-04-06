@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventAppLogicLayer
 {
-    public class GuestManager
+    public class GuestManager : IGuestManager
     {
         
 

@@ -24,9 +24,10 @@ namespace EventApp
     {
         private Guest _guest = null;
         private User _user = null;
-        private GuestManager _guestManager = new GuestManager();
-        private EventAppLogicLayer.EventManager _eventManager = new EventAppLogicLayer.EventManager();
-        private RoomManager _roomManger = new RoomManager();
+        private IGuestManager _guestManager = new GuestManager();
+        private IEventManager _eventManager = new EventAppLogicLayer.EventManager();
+        private IRoomManager _roomManger = new RoomManager();
+        private IUserManager _userManager = new UserManager();
         private List<Event> _events = new List<Event>();
         private List<RoomEvent> _rmevnts = new List<RoomEvent>();
         private List<Guest> _activeGuests = new List<Guest>();
@@ -199,7 +200,7 @@ namespace EventApp
                 if (_guest == null && _user != null &&
                     _user.Roles.Contains(_user.Roles.Find(r => r.RoleID.Contains("Clerk"))))
                 {
-                    var guestForm = new frmEmpLogin(_roomManger, _guestManager, "rooms");
+                    var guestForm = new frmEmpLogin(_roomManger, _guestManager, _userManager, "rooms");
                     var guestResult = guestForm.ShowDialog();
                     if (guestResult == true)
                     {
@@ -250,7 +251,7 @@ namespace EventApp
             // check that no one is currently logged in. If so, do nothing.
             if (_guest == null && _user == null)
             {
-                var loginForm = new frmEmpLogin(_roomManger, _guestManager);
+                var loginForm = new frmEmpLogin(_roomManger, _guestManager, _userManager);
                 var result = loginForm.ShowDialog();
                 if (result == true)
                 {
@@ -401,7 +402,7 @@ namespace EventApp
 
         private void mnuChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            var passwordWindow = new frmChangePassword(_user, _guest);
+            var passwordWindow = new frmChangePassword(_user, _guest, _roomManger, _userManager);
             passwordWindow.ShowDialog();
         }
 

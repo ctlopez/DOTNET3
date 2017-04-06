@@ -23,11 +23,11 @@ namespace EventApp
     {
         private List<RoomEvent> _roomEvents;
         private Guest _guest;
-        private EventAppLogicLayer.EventManager _em;
-        private GuestManager _gm;
-        private RoomManager _rm;
+        private IEventManager _em;
+        private IGuestManager _gm;
+        private IRoomManager _rm;
 
-        public RoomDetails(List<RoomEvent> rmEvents, Guest guest, EventAppLogicLayer.EventManager em, GuestManager gm, RoomManager rm)
+        public RoomDetails(List<RoomEvent> rmEvents, Guest guest, IEventManager em, IGuestManager gm, IRoomManager rm)
         {
             InitializeComponent();
             _roomEvents = rmEvents;

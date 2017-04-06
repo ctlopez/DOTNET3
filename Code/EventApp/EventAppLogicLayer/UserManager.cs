@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EventAppLogicLayer
 {
-    public class UserManager
+    public class UserManager : IUserManager
     {
         public static string HashSHA256(string source)
         {
