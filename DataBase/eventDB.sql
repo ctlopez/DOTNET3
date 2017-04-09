@@ -778,11 +778,34 @@ AS
 	END
 GO
 
+print '' print '**Creating sp_retrieve_employee_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_retrieve_employee_by_id]
+	(
+	@EmployeeID	int
+	)
+AS
+	BEGIN
+		SELECT EmployeeID, FirstName, LastName, Phone, Email, Username, Active
+		FROM Employee
+		WHERE EmployeeID = @EmployeeID
+	END
+GO
 
-
-
-
-
+print '' print '**Creating procedure sp_deactivate_event_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_deactivate_event_by_id]
+	(
+	@EventID	int
+	)
+AS
+	BEGIN
+		UPDATE Event
+		SET Active = 0
+		WHERE EventID = @EventID
+		RETURN @@ROWCOUNT
+	END
+GO
 
 
 

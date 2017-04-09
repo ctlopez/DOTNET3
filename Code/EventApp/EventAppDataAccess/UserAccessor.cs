@@ -170,5 +170,49 @@ namespace EventAppDataAccess
 
             return rows;
         }
+
+        public static Employee RetrieveEmployeeById(int employeeId)
+        {
+            Employee employee = null;
+
+            var conn = DBConnection.GetConnection();
+            var cmdText = @"sp_retrieve_employee_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    employee = new Employee()
+                    {
+                        EmployeeID = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        Phone = reader.GetString(3),
+                        Email = reader.GetString(4),
+                        UserName = reader.GetString(5),
+                        Active = reader.GetBoolean(6)
+                    };
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return employee;
+        }
     }
 }

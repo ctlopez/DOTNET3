@@ -500,6 +500,58 @@ namespace EventAppDataAccess
             return selectedEvent;
         }
 
+        public static EventWithEmployee RetrieveEventWithEmployeeByID(int eventID)
+        {
+            // Get a specific event by the event's ID. Used by system, user would not 
+            // know the ID.
+            EventWithEmployee selectedEvent = null;
+            var conn = DBConnection.GetConnection();
+            var cmdText = @"sp_get_event_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@EventID", SqlDbType.Int);
+            cmd.Parameters["@EventID"].Value = eventID;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    selectedEvent = new EventWithEmployee()
+                    {
+                        EventID = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Description = reader.GetString(2),
+                        Date = reader.GetDateTime(3).ToShortDateString(),
+                        Time = reader.GetInt32(4).ToString(),
+                        Location = reader.GetString(5),
+                        MaxSeats = reader.GetInt32(6),
+                        Price = reader.GetDecimal(7),
+                        AddedBy = reader.GetInt32(8),
+                        Active = reader.GetBoolean(9)
+                    };
+                }
+                reader.Close();
+
+                selectedEvent.EmployeeCreater = UserAccessor.RetrieveEmployeeById(selectedEvent.AddedBy);
+            }
+            catch (Exception)
+            {
+
+                throw new ApplicationException(noAccess);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return selectedEvent;
+        }
+
         public static List<Event> RetrieveAllEvents()
         {
             // Get all events, both active and inactive.
@@ -547,6 +599,35 @@ namespace EventAppDataAccess
             }
 
             return events;
+        }
+
+        public static int DeactivateEventById(int eventId)
+        {
+            var rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmdText = @"sp_deactivate_event_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@EventID", eventId);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
     }
 }

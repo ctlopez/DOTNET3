@@ -469,5 +469,33 @@ namespace EventAppLogicLayer
             return selectedEvent;
         }
 
+
+
+        public EventWithEmployee GetEventWithEmployeeById(int eventId)
+        {
+            try
+            {
+                return EventAccessor.RetrieveEventWithEmployeeByID(eventId);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
+
+        public bool DeactivateEventById(int eventId)
+        {
+            try
+            {
+                return (1 == EventAccessor.DeactivateEventById(eventId));
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
     }
 }

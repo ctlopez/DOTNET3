@@ -1,4 +1,5 @@
 ﻿using System;
+using EventAppDataObjects;
 namespace EventAppLogicLayer
 {
     public interface IEventManager
@@ -20,5 +21,7 @@ namespace EventAppLogicLayer
         string PullMinutesFromFull(string time);
         string PullPeriodFromFull(string time);
         bool ValidData(string name, string description, string hours, string minutes, string period, string date, string location, string price, string maxSeats, string active);
+        EventWithEmployee GetEventWithEmployeeById(int eventId);
+        bool DeactivateEventById(int eventId);
     }
 }
