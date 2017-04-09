@@ -212,13 +212,13 @@ GO
 INSERT INTO [dbo].[Event]
 		([Name], [Description], [Date], [Time], [Location], [MaxSeats], [Price], [AddedBy])
 	VALUES
-		('Night on the Town', 'Have a night in the city with discounts on popular places.', '12-07-2016', 1080, 'In the city', 500, 25.00, 10001),
-		('City Bus Tour', 'Take a look at the city hot spots with this bus tour.', '12-10-2016', 600, 'Right outside the hotel', 30, 15.00, 10002),
-		('City Bus Tour', 'Take a look at the city hot spots with this bus tour.', '12-10-2016', 870, 'Right outside the hotel', 30, 15.00, 10002),
-		('A night of Dancing', 'We are bringing in a live band, "The Swing Boys," for you to dance the night away!', '12-16-2016', 1350, 'Hotel ballroom', 250, 40.00, 10001),
-		('Carraige Rides', 'Take a horse drawn carraige to enjoy the city''s Christmas Lights', '12-17-2016', 1095, 'Right outside the hotel', 100, 10.00, 10002),
-		('Bingo', 'Join us for a fun filled time playing bingo! Prizes are available!', '12-20-2016', 1170, 'Hotel Event Center', 400, 10.00, 10001),
-		('Taste the World', 'We are bringing in great chefs to create tantalizing dishes from around the world!', '12-27-2016', 1050, 'Hotel Event Center', 350, 75.00, 10001)
+		('Night on the Town', 'Have a night in the city with discounts on popular places.', CONVERT(DATE, DATEADD(day, 1, GETDATE())), 1080, 'In the city', 500, 25.00, 10001),
+		('City Bus Tour', 'Take a look at the city hot spots with this bus tour.', CONVERT(DATE, DATEADD(day, 5, GETDATE())), 600, 'Right outside the hotel', 30, 15.00, 10002),
+		('City Bus Tour', 'Take a look at the city hot spots with this bus tour.', CONVERT(DATE, DATEADD(day, -2, GETDATE())), 870, 'Right outside the hotel', 30, 15.00, 10002),
+		('A night of Dancing', 'We are bringing in a live band, "The Swing Boys," for you to dance the night away!', CONVERT(DATE, DATEADD(day, 15, GETDATE())), 1350, 'Hotel ballroom', 250, 40.00, 10001),
+		('Carraige Rides', 'Take a horse drawn carraige to enjoy the city''s Christmas Lights', CONVERT(DATE, DATEADD(day, 7, GETDATE())), 1095, 'Right outside the hotel', 100, 10.00, 10002),
+		('Bingo', 'Join us for a fun filled time playing bingo! Prizes are available!', CONVERT(DATE, DATEADD(day, 11, GETDATE())), 1170, 'Hotel Event Center', 400, 10.00, 10001),
+		('Taste the World', 'We are bringing in great chefs to create tantalizing dishes from around the world!', CONVERT(DATE, DATEADD(day, 1, GETDATE())), 1050, 'Hotel Event Center', 350, 75.00, 10001)
 GO
 
 print '' print '** Creating Table Employee'
