@@ -16,9 +16,10 @@ namespace EventAppMVCPresentationLayer.Controllers
     {
         private IEventManager _eventManager;
 
-        public EventsController()
+        public EventsController(IEventManager eventManager)
         {
-            _eventManager = new EventManager();//Will change once we get Ninject involved
+            //_eventManager = new EventManager();//Will change once we get Ninject involved
+            _eventManager = eventManager;
         }
 
         // GET: Events
