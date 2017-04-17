@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EventAppMVCPresentationLayer.Models;
+using EventAppLogicLayer;
 
 namespace EventAppMVCPresentationLayer.Controllers
 {
@@ -17,15 +18,21 @@ namespace EventAppMVCPresentationLayer.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private EventAppLogicLayer.IUserManager _usrManager;
+        private IGuestManager _guestManager;
 
-        public AccountController()
+        public AccountController(EventAppLogicLayer.IUserManager userManager, IGuestManager guestManager)
         {
+            _usrManager = userManager;
+            _guestManager = guestManager;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, EventAppLogicLayer.IUserManager usrManager, IGuestManager guestManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _usrManager = usrManager;
+            _guestManager = guestManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -75,11 +82,11 @@ namespace EventAppMVCPresentationLayer.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Events");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -151,8 +158,43 @@ namespace EventAppMVCPresentationLayer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                //var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
+                //var result = await UserManager.CreateAsync(user, model.Password);
+                EventAppDataObjects.User usr = null;
+                EventAppDataObjects.Guest guest = null;
+                try
+                {
+                    if (model.Username.Length != 3)
+                    {
+                        usr = _usrManager.AuthenticateUser(model.Username, model.Password);
+                    }
+                    else if (null == usr)
+                    {
+                        guest = _guestManager.VerifyGuest(model.Username, model.Password);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    ViewBag.Message = "Invalid registration attempt. Bad username or password.";
+                    return View();
+                }
+
+                IdentityResult result = null;
+                ApplicationUser user = null;
+
+                if (null != usr)
+                {
+                    user = new ApplicationUser { UserName = usr.UserName, Email = usr.Email };
+                    result = await UserManager.CreateAsync(user, model.Password);
+                }
+                else
+                {
+                    user = new ApplicationUser { UserName = guest.RoomID, Email = guest.Email };
+                    result = await UserManager.CreateAsync(user, model.Password);
+                }
+                
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -162,8 +204,35 @@ namespace EventAppMVCPresentationLayer.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    if (null != usr)
+                    {
+                        UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, usr.FirstName));
+                        UserManager.AddClaim(user.Id, new Claim(ClaimTypes.Surname, usr.LastName));
+                        foreach (var role in usr.Roles)
+                        {
+                            switch (role.RoleID)
+                            {
+                                case "Clerk":
+                                    UserManager.AddToRole(user.Id, "Clerk");
+                                    break;
+                                case "Manager":
+                                    UserManager.AddToRole(user.Id, "Manager");
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, guest.FirstName));
+                        UserManager.AddClaim(user.Id, new Claim(ClaimTypes.Surname, guest.LastName));
+                        UserManager.AddToRole(user.Id, "Guest");
+                    }
+                    
 
-                    return RedirectToAction("Index", "Home");
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    return RedirectToAction("Index", "Events");
                 }
                 AddErrors(result);
             }
@@ -392,7 +461,7 @@ namespace EventAppMVCPresentationLayer.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Events");
         }
 
         //

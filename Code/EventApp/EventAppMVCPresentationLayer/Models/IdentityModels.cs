@@ -30,5 +30,9 @@ namespace EventAppMVCPresentationLayer.Models
             return new ApplicationDbContext();
         }
 
+        public System.Data.Entity.DbSet<EventAppDataObjects.EventWithEmployee> EventWithEmployees { get; set; }
+
+        public System.Data.Entity.DbSet<EventAppMVCPresentationLayer.Models.PurchaseModel> PurchaseModels { get; set; }
+
     }
 }

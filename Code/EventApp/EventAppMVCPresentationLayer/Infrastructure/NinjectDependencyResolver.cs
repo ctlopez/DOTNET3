@@ -31,6 +31,8 @@ namespace EventAppMVCPresentationLayer.Infrastructure
         private void AddBindings()
         {
             _kernel.Bind<IEventManager>().To<EventManager>();
+            _kernel.Bind<IUserManager>().To<UserManager>();
+            _kernel.Bind<IGuestManager>().To<GuestManager>();
         }
     }
 }

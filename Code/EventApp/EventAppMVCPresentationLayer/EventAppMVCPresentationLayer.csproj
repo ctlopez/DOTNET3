@@ -184,9 +184,31 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Migrations\201704171729036_Made ADMIN and Roles.cs" />
+    <Compile Include="Migrations\201704171729036_Made ADMIN and Roles.Designer.cs">
+      <DependentUpon>201704171729036_Made ADMIN and Roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704171731150_Made Roles.cs" />
+    <Compile Include="Migrations\201704171731150_Made Roles.Designer.cs">
+      <DependentUpon>201704171731150_Made Roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704171807034_Update Admin Roles.cs" />
+    <Compile Include="Migrations\201704171807034_Update Admin Roles.Designer.cs">
+      <DependentUpon>201704171807034_Update Admin Roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704171857115_Add Guest Role.cs" />
+    <Compile Include="Migrations\201704171857115_Add Guest Role.Designer.cs">
+      <DependentUpon>201704171857115_Add Guest Role.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704171953360_Update DB.cs" />
+    <Compile Include="Migrations\201704171953360_Update DB.Designer.cs">
+      <DependentUpon>201704171953360_Update DB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PurchaseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -266,6 +288,7 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Events\DetailsWithPurchase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -283,6 +306,23 @@
       <Project>{c137d244-1c97-419b-8586-6d00363473a3}</Project>
       <Name>EventAppLogicLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704171729036_Made ADMIN and Roles.resx">
+      <DependentUpon>201704171729036_Made ADMIN and Roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704171731150_Made Roles.resx">
+      <DependentUpon>201704171731150_Made Roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704171807034_Update Admin Roles.resx">
+      <DependentUpon>201704171807034_Update Admin Roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704171857115_Add Guest Role.resx">
+      <DependentUpon>201704171857115_Add Guest Role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704171953360_Update DB.resx">
+      <DependentUpon>201704171953360_Update DB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
