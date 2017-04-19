@@ -89,6 +89,17 @@ namespace EventAppMVCPresentationLayer.Controllers
                         Time = @event.Time,
                         RoomId = User.Identity.Name
                     };
+
+                    try
+                    {
+                        purchaseModel.CurrentAmount = _eventManager.CalculateAvailableTickets(@event);
+                    }
+                    catch (Exception)
+                    {
+                        
+                        return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+                    }
+
                     return View("DetailsWithPurchase", purchaseModel);
                 }
                 return View(@event);

@@ -15,14 +15,14 @@ namespace EventAppMVCPresentationLayer.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Welcome to Hotel Inn";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "We want to know!";
 
             return View();
         }

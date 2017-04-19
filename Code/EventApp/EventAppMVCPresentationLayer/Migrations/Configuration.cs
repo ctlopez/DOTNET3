@@ -21,6 +21,12 @@ namespace EventAppMVCPresentationLayer.Migrations
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
+            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Manager" });
+            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Clerk" });
+            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Guest" });
+
+            context.SaveChanges();
+
             // check for an admin, and if not there, create one
             if (!context.Users.Any(u => u.UserName == "admin@test.com"))
             {
@@ -48,14 +54,55 @@ namespace EventAppMVCPresentationLayer.Migrations
                 userManager.AddToRole(user.Id, "Manager");
                 userManager.AddToRole(user.Id, "Clerk");
                 context.SaveChanges();
+
+
             }
 
-            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Manager" });
-            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Clerk" });
-            context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Guest" });
+            //if (!context.Users.Any(u => u.UserName == "Room100"))
+            //{
+            //    for (int i = 100; i <= 120; i++)
+            //    {
+            //        var user = new ApplicationUser
+            //        {
+            //            UserName = "Room"+i
+            //        };
 
-            context.SaveChanges();
+            //        IdentityResult result = userManager.Create(user, "0"+i);
+            //        context.SaveChanges();
+            //        userManager.AddToRole(user.Id, "Guest");
+            //        context.SaveChanges();
 
+            //    }
+            //    for (int i = 200; i <= 220; i++)
+            //    {
+            //        var user = new ApplicationUser
+            //        {
+            //            UserName = "Room"+i
+            //        };
+
+            //        IdentityResult result = userManager.Create(user, "0" + i);
+            //        context.SaveChanges();
+            //        userManager.AddToRole(user.Id, "Guest");
+            //        context.SaveChanges();
+
+            //    }
+            //    for (int i = 300; i <= 320; i++)
+            //    {
+            //        var user = new ApplicationUser
+            //        {
+            //            UserName = "Room"+i
+            //        };
+
+            //        IdentityResult result = userManager.Create(user, "0" + i);
+            //        context.SaveChanges();
+            //        userManager.AddToRole(user.Id, "Guest");
+            //        context.SaveChanges();
+
+            //    }
+            //    context.SaveChanges();
+            //}
+
+            
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
