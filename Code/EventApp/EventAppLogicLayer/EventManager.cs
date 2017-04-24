@@ -475,7 +475,9 @@ namespace EventAppLogicLayer
         {
             try
             {
-                return EventAccessor.RetrieveEventWithEmployeeByID(eventId);
+                EventAppDataObjects.EventWithEmployee @event = EventAccessor.RetrieveEventWithEmployeeByID(eventId);
+                formatTimeForEvent(@event);
+                return @event;
             }
             catch (Exception)
             {

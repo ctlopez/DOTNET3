@@ -17,13 +17,15 @@ namespace EventAppMVCPresentationLayer.Controllers
         private IEventManager _eventManager;
         private IGuestManager _guestManager;
         private IRoomManager _roomManager;
+        private IUserManager _userManager;
 
-        public EventsController(IEventManager eventManager, IGuestManager guestManager, IRoomManager roomManager)
+        public EventsController(IEventManager eventManager, IGuestManager guestManager, IRoomManager roomManager, IUserManager userManager)
         {
             //_eventManager = new EventManager();
             _eventManager = eventManager;
             _guestManager = guestManager;
             _roomManager = roomManager;
+            _userManager = userManager;
         }
 
         // GET: Events
@@ -118,14 +120,38 @@ namespace EventAppMVCPresentationLayer.Controllers
         [Authorize(Roles="Guest")]
         public ActionResult DetailsWithPurchase(int id, int quantity)
         {
+            if (quantity < 1 || quantity % 1 != 0)
+            {
+                ModelState.AddModelError("Quantity", "To purchase, please enter an integer one (1) or greater.");
+            }
+            EventAppDataObjects.Event @event = null;
+            try
+            {
+                @event = _eventManager.GetEventByID(id);
+            }
+            catch (Exception)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+            }
+
+            if (null == @event)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
+
+            if (quantity > _eventManager.CalculateAvailableTickets(@event))
+            {
+                ModelState.AddModelError("Quantity", "Cannot purchase more tickets than available.");
+            }
 
             if (ModelState.IsValid)
             {
-                EventAppDataObjects.Event @event = null;
+                
                 Guest guest = null;
                 try
                 {
-                    @event = _eventManager.GetEventByID(id);
+                    
                     guest = _guestManager.GetGuestByRoomID(User.Identity.Name);
                 }
                 catch (Exception)
@@ -148,9 +174,13 @@ namespace EventAppMVCPresentationLayer.Controllers
                         {
                             //MessageBox.Show(thanks);
                             //this.DialogResult = true;
+                            //return View("Index", "Events");
+                            //return RedirectToAction("Index");
+                            return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.AddedEvent });
                         }
                         else
                         {
+                            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
                             //MessageBox.Show("There was a problem saving your purchase. Please try again later!");
                         }
                     }
@@ -168,6 +198,14 @@ namespace EventAppMVCPresentationLayer.Controllers
                         {
                             //MessageBox.Show(thanks);
                             //this.DialogResult = true;
+                            //return Index();
+                            //return RedirectToAction("Index");
+                            return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.AddedEvent });
+                            
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
                         }
                     }
                     catch (Exception)
@@ -178,7 +216,7 @@ namespace EventAppMVCPresentationLayer.Controllers
                 }
 
             }
-            return View();
+            return Details(id);
         }
 
         [Authorize(Roles="Manager")]
@@ -188,23 +226,36 @@ namespace EventAppMVCPresentationLayer.Controllers
             return View();
         }
 
-        //// POST: Events/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles="Manager")]
-        //public ActionResult Create([Bind(Include = "EventID,Name,Description,Date,Time,Location,MaxSeats,Price,AddedBy,Active")] Event @event)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Events.Add(@event);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+        // POST: Events/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
+        public ActionResult Create([Bind(Include = "EventID,Name,Description,Date,Time,Location,MaxSeats,Price,AddedBy,Active")] Event @event)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.Events.Add(@event);
+                //db.SaveChanges();
+                
+                try
+                {
+                    Employee emp = _userManager.RetrieveEmployeeByUsername(User.Identity.Name);
+                    @event.AddedBy = emp.EmployeeID;
+                    _eventManager.AddNewEvent(@event);
+                }
+                catch (Exception)
+                {
+                    
+                    throw;
+                }
 
-        //    return View(@event);
-        //}
+                return RedirectToAction("Index");
+            }
+
+            return View(@event);
+        }
 
         [Authorize(Roles = "Manager")]
         // GET: Events/Edit/5

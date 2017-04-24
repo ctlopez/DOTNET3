@@ -37,11 +37,11 @@ namespace EventAppMVCPresentationLayer.Models
 
         public Employee EmployeeCreater { get; set; }
 
-        
+        [Display(Name = "Tickets Left")]
         public int CurrentAmount { get; set; }
 
         [Required(ErrorMessage="You must supply a number to purchase")]
-        [Range(0, int.MaxValue, ErrorMessage="Please enter a valid positive integer")]
+        [Range(1, int.MaxValue, ErrorMessage="Please enter a valid positive integer")]
         [LessThan("CurrentAmount")]
         public int Quantity { set; get; }
 

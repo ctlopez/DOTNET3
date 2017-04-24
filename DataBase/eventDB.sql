@@ -1,4 +1,12 @@
 /* Check if database already exists and delete it if it does exist */
+IF EXISTS (SELECT 1 FROM master.dbo.sysdatabases WHERE name = 'eventDBSecurity')
+BEGIN
+	DROP DATABASE eventDBSecurity
+	print '' print '*** Dropping database eventDBSecurity'
+END
+GO
+
+
 IF EXISTS (SELECT 1 FROM master.dbo.sysdatabases WHERE name = 'eventDB')
 BEGIN
 	DROP DATABASE eventDB

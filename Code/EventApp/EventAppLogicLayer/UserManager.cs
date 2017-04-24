@@ -101,5 +101,27 @@ namespace EventAppLogicLayer
             return result;
         }
 
+        /// <summary>
+        /// Christian Lopez
+        /// 2017/04/24
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public User RetrieveEmployeeByUsername(string username)
+        {
+            User user = null;
+            try
+            {
+                user = UserAccessor.RetrieveUserByUsername(username);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
+            return user;
+        }
+
     }
 }

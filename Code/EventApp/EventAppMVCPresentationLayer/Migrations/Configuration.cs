@@ -64,10 +64,10 @@ namespace EventAppMVCPresentationLayer.Migrations
             //    {
             //        var user = new ApplicationUser
             //        {
-            //            UserName = "Room"+i
+            //            UserName = "Room" + i
             //        };
 
-            //        IdentityResult result = userManager.Create(user, "0"+i);
+            //        IdentityResult result = userManager.Create(user, "0" + i);
             //        context.SaveChanges();
             //        userManager.AddToRole(user.Id, "Guest");
             //        context.SaveChanges();
@@ -77,7 +77,7 @@ namespace EventAppMVCPresentationLayer.Migrations
             //    {
             //        var user = new ApplicationUser
             //        {
-            //            UserName = "Room"+i
+            //            UserName = "Room" + i
             //        };
 
             //        IdentityResult result = userManager.Create(user, "0" + i);
@@ -90,7 +90,7 @@ namespace EventAppMVCPresentationLayer.Migrations
             //    {
             //        var user = new ApplicationUser
             //        {
-            //            UserName = "Room"+i
+            //            UserName = "Room" + i
             //        };
 
             //        IdentityResult result = userManager.Create(user, "0" + i);

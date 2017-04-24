@@ -20,6 +20,7 @@ namespace EventAppDataObjects
         [Required(ErrorMessage = "You must supply a date.")]
         public string Date { get; set; }
         [Required(ErrorMessage = "You must supply a time.")]
+        [RegularExpression("^((1[0-2]|[1-9]):([0-5][0-9]) ([AP][M]))", ErrorMessage="Time must be H:MM [AM/PM]")]
         public string Time { get; set; }
         [Required(ErrorMessage = "You must supply a location.")]
         [StringLength(300, ErrorMessage = "Cannot exceed 300 characters.")]
