@@ -33,6 +33,7 @@ namespace EventAppMVCPresentationLayer.Infrastructure
             _kernel.Bind<IEventManager>().To<EventManager>();
             _kernel.Bind<IUserManager>().To<UserManager>();
             _kernel.Bind<IGuestManager>().To<GuestManager>();
+            _kernel.Bind<IRoomManager>().To<RoomManager>();
         }
     }
 }

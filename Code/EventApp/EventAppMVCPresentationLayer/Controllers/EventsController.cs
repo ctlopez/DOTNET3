@@ -16,12 +16,14 @@ namespace EventAppMVCPresentationLayer.Controllers
     {
         private IEventManager _eventManager;
         private IGuestManager _guestManager;
+        private IRoomManager _roomManager;
 
-        public EventsController(IEventManager eventManager, IGuestManager guestManager)
+        public EventsController(IEventManager eventManager, IGuestManager guestManager, IRoomManager roomManager)
         {
             //_eventManager = new EventManager();
             _eventManager = eventManager;
             _guestManager = guestManager;
+            _roomManager = roomManager;
         }
 
         // GET: Events
@@ -120,15 +122,61 @@ namespace EventAppMVCPresentationLayer.Controllers
             if (ModelState.IsValid)
             {
                 EventAppDataObjects.Event @event = null;
+                Guest guest = null;
                 try
                 {
                     @event = _eventManager.GetEventByID(id);
+                    guest = _guestManager.GetGuestByRoomID(User.Identity.Name);
                 }
                 catch (Exception)
                 {
 
                     return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
                 }
+
+                if (null == @event || null == guest)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+                }
+
+                //See if they already have tickets for this event. If so, add the new amount to it!
+                if (_roomManager.CheckIfPurchasedAlready(guest.RoomID, @event.EventID))
+                {
+                    try
+                    {
+                        if (_roomManager.PurchaseMoreTickets(guest.RoomID, @event.EventID, quantity) == 1)
+                        {
+                            //MessageBox.Show(thanks);
+                            //this.DialogResult = true;
+                        }
+                        else
+                        {
+                            //MessageBox.Show("There was a problem saving your purchase. Please try again later!");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+                        //MessageBox.Show("ERROR: " + ex.Message);
+                    }
+                }
+                else // They don't already have tickets, so make a new record
+                {
+                    try
+                    {
+                        if (1 == _roomManager.PurchaseTickets(guest.RoomID, @event.EventID, quantity))
+                        {
+                            //MessageBox.Show(thanks);
+                            //this.DialogResult = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+                        //MessageBox.Show("ERROR: " + ex.Message);
+                    }
+                }
+
             }
             return View();
         }
@@ -173,6 +221,7 @@ namespace EventAppMVCPresentationLayer.Controllers
             }
             return View(@event);
         }
+
 
         // POST: Events/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
