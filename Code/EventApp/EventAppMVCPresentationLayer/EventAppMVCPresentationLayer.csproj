@@ -223,6 +223,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EventsForAccountViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LessThanAttribute.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -314,6 +315,7 @@
     <Content Include="Views\Guests\Details.cshtml" />
     <Content Include="Views\Guests\Edit.cshtml" />
     <Content Include="Views\Guests\Index.cshtml" />
+    <Content Include="Views\Manage\EventsForAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

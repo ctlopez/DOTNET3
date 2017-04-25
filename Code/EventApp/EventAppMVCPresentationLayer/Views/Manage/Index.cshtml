@@ -81,4 +81,9 @@
                 }*@
         </dd>
     </dl>
+    @if (Request.IsAuthenticated && User.IsInRole("Guest"))
+    {
+        @Html.Action("EventsForRoom", "Events", new { guestRoom = User.Identity.Name})
+    }
+
 </div>

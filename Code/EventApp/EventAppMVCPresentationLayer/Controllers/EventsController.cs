@@ -355,6 +355,29 @@ namespace EventAppMVCPresentationLayer.Controllers
             
         }
 
+        public PartialViewResult EventsForRoom(string guestRoom)
+        {
+            List<RoomEvent> events = new List<RoomEvent>();
+            try
+            {
+                events = _roomManager.GetEventsForRoom(guestRoom);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
+            var eventsForAccount = new EventsForAccountViewModel()
+            {
+                RoomNumber = guestRoom,
+                EventsWithRoom = events,
+                TotalAmount = events.Select(e => e.TotalPrice).Sum()
+            };
+            return PartialView("~/Views/Manage/EventsForAccount.cshtml", eventsForAccount);
+            
+        }
+
         //protected override void Dispose(bool disposing)
         //{
         //    if (disposing)

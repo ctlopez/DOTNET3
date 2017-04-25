@@ -1,0 +1,67 @@
+﻿@model EventAppMVCPresentationLayer.Models.EventsForAccountViewModel
+
+
+<div>
+
+    <h3>Room @Model.RoomNumber</h3>
+
+    <table class="table">
+
+        <tr>
+            <th>
+                Event ID
+            </th>
+            <th>
+                Event Name
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Individual Price
+            </th>
+            <th>
+                Tickets Reserved
+            </th>
+            <th>
+                Total Price
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+
+        @foreach (EventAppDataObjects.RoomEvent item in Model.EventsWithRoom)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IndividualPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketsReserved)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Events", new { id = item.EventID }) @*|*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.EventID })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    @*<h3>Total: $@Model.TotalAmount</h3>*@
+    <h3>Total: @Model.TotalAmount.ToString("C")</h3>
+
+</div>
