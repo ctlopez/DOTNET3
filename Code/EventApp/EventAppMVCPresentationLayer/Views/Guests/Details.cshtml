@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Room @Html.DisplayFor(model => model.RoomID) Details</h2>
 
 <div>
-    <h4>Guest</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -50,17 +49,22 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Active)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Active)
-        </dd>
+        </dd>*@
 
     </dl>
+@if (Request.IsAuthenticated && User.IsInRole("Clerk"))
+{
+    @Html.Action("EventsForRoom", "Events", new { guestRoom = Model.RoomID })
+}
+
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.GuestID }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.GuestID }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

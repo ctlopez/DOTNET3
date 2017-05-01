@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<EventAppDataObjects.Guest>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Guest List";
 }
 
-<h2>Index</h2>
+<h2>Guest List</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -26,9 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Active)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -49,13 +49,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Active)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GuestID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GuestID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GuestID })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.GuestID }) |*@
+            @Html.ActionLink("Room Details", "Details", new { id=item.RoomID }) @*|
+            @Html.ActionLink("Delete", "Delete", new { id=item.GuestID })*@
         </td>
     </tr>
 }

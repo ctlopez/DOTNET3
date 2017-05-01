@@ -378,7 +378,7 @@ namespace EventAppMVCPresentationLayer.Controllers
             
         }
 
-        [Authorize(Roles="Guest")]
+        [Authorize(Roles="Guest,Clerk")]
         public ActionResult RemovePurchasedTickets(string guestRoom, int eventId)
         {
             Guest currentGuest;
@@ -411,7 +411,17 @@ namespace EventAppMVCPresentationLayer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
             }
 
-            return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.RemoveTickets });
+            if (User.IsInRole("Guest"))
+            {
+                return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.RemoveTickets });
+            }
+            else if (User.IsInRole("Clerk"))
+            {
+                return RedirectToAction("Details", "Guests", new { id = guestRoom });
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            
         }
 
         //protected override void Dispose(bool disposing)

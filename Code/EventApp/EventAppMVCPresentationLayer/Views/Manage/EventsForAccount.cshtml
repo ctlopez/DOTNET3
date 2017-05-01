@@ -54,7 +54,15 @@
                 </td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { Id = item.EventID }) |
-                    @Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = User.Identity.Name, eventId = item.EventID }, null)
+                    @if (Request.IsAuthenticated && User.IsInRole("Guest"))
+                    {
+                        @Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = User.Identity.Name, eventId = item.EventID }, null)
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Clerk"))
+                    {
+                        @Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = Model.RoomNumber, eventId = item.EventID }, null)
+                    }
+                    
                 </td>
             </tr>
         }

@@ -8,33 +8,68 @@ using System.Web;
 using System.Web.Mvc;
 using EventAppDataObjects;
 using EventAppMVCPresentationLayer.Models;
+using EventAppLogicLayer;
 
 namespace EventAppMVCPresentationLayer.Controllers
 {
     public class GuestsController : Controller
     {
         //private ApplicationDbContext db = new ApplicationDbContext();
+        private IGuestManager _guestManager;
 
-        //// GET: Guests
-        //public ActionResult Index()
-        //{
-        //    return View(db.Guests.ToList());
-        //}
+        public GuestsController(IGuestManager guestManager)
+        {
+            _guestManager = guestManager;
+        }
 
-        //// GET: Guests/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Guest guest = db.Guests.Find(id);
-        //    if (guest == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(guest);
-        //}
+        // GET: Guests
+        [Authorize(Roles="Clerk")]
+        public ActionResult Index()
+        {
+            List<Guest> guests = null;
+            try
+            {
+                guests = _guestManager.GetGuests();
+            }
+            catch (Exception)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+            }
+
+            if (null == guests)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(guests);
+        }
+
+        // GET: Guests/Details/5
+        [Authorize(Roles="Clerk")]
+        public ActionResult Details(string id)
+        {
+            if (id == null || id.Equals(""))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Guest guest = null;
+            try
+            {
+                guest = _guestManager.GetGuestByRoomID(id);
+            }
+            catch (Exception)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+            }
+            if (guest == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(guest);
+        }
 
         //// GET: Guests/Create
         //public ActionResult Create()
