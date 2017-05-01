@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAppMVCPresentationLayer", "EventAppMVCPresentationLayer\EventAppMVCPresentationLayer.csproj", "{F7D3A80B-8BDA-48C4-B8E5-EF099326EE9E}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAppPresentationLayer", "EventApp\EventAppPresentationLayer.csproj", "{68E84581-F704-4DE4-8A95-E1A91E2CE4FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAppLogicLayer", "EventAppLogicLayer\EventAppLogicLayer.csproj", "{C137D244-1C97-419B-8586-6D00363473A3}"
@@ -10,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAppDataAccess", "EventAppDataAccess\EventAppDataAccess.csproj", "{514E9715-05AD-4F76-A8D8-355D1D958E92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAppDataObjects", "EventAppDataObjects\EventAppDataObjects.csproj", "{FA1AC980-822D-46C4-AD21-F917F93B9013}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAppMVCPresentationLayer", "EventAppMVCPresentationLayer\EventAppMVCPresentationLayer.csproj", "{F7D3A80B-8BDA-48C4-B8E5-EF099326EE9E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C015CDF1-BAAD-42D9-B064-200174FD8FF0}"
 	ProjectSection(SolutionItems) = preProject

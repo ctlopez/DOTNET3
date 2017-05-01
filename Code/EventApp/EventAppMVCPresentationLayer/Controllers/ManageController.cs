@@ -62,6 +62,7 @@ namespace EventAppMVCPresentationLayer.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : message == ManageMessageId.AddedEvent ? "Your tickets have been purchased."
+                : message == ManageMessageId.RemoveTickets ? "Your tickets have been removed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -381,7 +382,8 @@ namespace EventAppMVCPresentationLayer.Controllers
             RemoveLoginSuccess,
             RemovePhoneSuccess,
             Error,
-            AddedEvent
+            AddedEvent,
+            RemoveTickets
         }
 
 #endregion

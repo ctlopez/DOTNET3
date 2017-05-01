@@ -378,6 +378,42 @@ namespace EventAppMVCPresentationLayer.Controllers
             
         }
 
+        [Authorize(Roles="Guest")]
+        public ActionResult RemovePurchasedTickets(string guestRoom, int eventId)
+        {
+            Guest currentGuest;
+            EventAppDataObjects.Event evnt;
+            try
+            {
+                currentGuest = _guestManager.GetGuestByRoomID(guestRoom);
+                evnt = _eventManager.GetEventByID(eventId);
+            }
+            catch (Exception)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+            }
+
+            if (null == currentGuest || null == evnt)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                if (!_roomManager.RemoveReservedTickets(currentGuest, evnt))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+            }
+
+            return RedirectToAction("Index", "Manage", new { Message = ManageController.ManageMessageId.RemoveTickets });
+        }
+
         //protected override void Dispose(bool disposing)
         //{
         //    if (disposing)

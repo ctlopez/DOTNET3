@@ -53,8 +53,8 @@
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { Id = item.EventID }) @*|*@
-                    @*@Html.ActionLink("Delete", "Delete", new { id = item.EventID })*@
+                    @Html.ActionLink("Details", "Details", new { Id = item.EventID }) |
+                    @Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = User.Identity.Name, eventId = item.EventID }, null)
                 </td>
             </tr>
         }
