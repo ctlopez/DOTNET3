@@ -85,6 +85,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EventID }) |
+    @if (Request.IsAuthenticated && User.IsInRole("Manager"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.EventID }) <span> |</span>
+    }
+    
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -1,7 +1,7 @@
 ﻿@model EventAppMVCPresentationLayer.Models.PurchaseModel
 
 @{
-    ViewBag.Title = "DetailsWithPurchase";
+    ViewBag.Title = "Details";
 }
 
 <h2>Details</h2>
@@ -104,7 +104,11 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EventID, quantity = Model.Quantity }) |
+    @if (Request.IsAuthenticated && User.IsInRole("Manager"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.EventID, quantity = Model.Quantity }) <span> |</span>
+    }
+    
     @Html.ActionLink("Back to List", "Index")
 </p>
 
