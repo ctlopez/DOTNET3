@@ -18,6 +18,7 @@ namespace EventAppDataObjects
         [StringLength(300, ErrorMessage = "Cannot exceed 300 characters.")]
         public string Description { get; set; }
         [Required(ErrorMessage = "You must supply a date.")]
+        [FutureDate(ErrorMessage="The date must be in the future.")]
         public string Date { get; set; }
         [Required(ErrorMessage = "You must supply a time.")]
         [RegularExpression("^((1[0-2]|[1-9]):([0-5][0-9]) ([AP][M]))", ErrorMessage="Time must be H:MM [AM/PM]")]

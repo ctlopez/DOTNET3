@@ -19,6 +19,7 @@ namespace EventAppMVCPresentationLayer.Models
         [StringLength(300, ErrorMessage = "Cannot exceed 300 characters.")]
         public string Description { get; set; }
         [Required(ErrorMessage = "You must supply a date.")]
+        [FutureDate(ErrorMessage = "Date must be in the future.")]
         public string Date { get; set; }
         [Required(ErrorMessage = "You must supply a time.")]
         public string Time { get; set; }

@@ -32,7 +32,7 @@ namespace EventAppMVCPresentationLayer.Controllers
         public ActionResult Index()
         {
             _eventManager.ClearOldEvents();
-            if (User != null)
+            if (Request.IsAuthenticated)
             {
                 if (User.IsInRole("Manager"))
                 {
