@@ -9,7 +9,29 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<table class="table">
+
+<ul class="nav nav-pills">
+    <li class="active"><a data-toggle="tab" href="#fullList">Full List</a></li>
+    <li><a data-toggle="tab" href="#firstFloor">First Floor</a></li>
+    <li><a data-toggle="tab" href="#secondFloor">Second Floor</a></li>
+    <li><a data-toggle="tab" href="#thirdFloor">Third Floor</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="fullList" class="tab-pane fade in active">
+        @Html.Action("FullList","Guests")
+    </div>
+    <div id="firstFloor" class="tab-pane fade">
+        @Html.Action("FirstFloor", "Guests")
+    </div>
+    <div id="secondFloor" class="tab-pane fade">
+        @Html.Action("SecondFloor", "Guests")
+    </div>
+    <div id="thirdFloor" class="tab-pane fade">
+        @Html.Action("ThirdFloor", "Guests")
+    </div>
+</div>
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.RoomID)
@@ -28,7 +50,7 @@
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.Active)
-        </th>*@
+        </th>
         <th></th>
     </tr>
 
@@ -49,15 +71,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>*@
         <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.GuestID }) |*@
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+       <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GuestID }) |
             @Html.ActionLink("Room Details", "Details", new { id=item.RoomID }) @*|
             @Html.ActionLink("Delete", "Delete", new { id=item.GuestID })*@
-        </td>
+        @*</td>
     </tr>
 }
 
-</table>
+</table>*@

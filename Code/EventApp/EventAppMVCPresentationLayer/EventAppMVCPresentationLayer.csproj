@@ -318,6 +318,7 @@
     <Content Include="Views\Guests\Edit.cshtml" />
     <Content Include="Views\Guests\Index.cshtml" />
     <Content Include="Views\Manage\EventsForAccount.cshtml" />
+    <Content Include="Views\Guests\GuestListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

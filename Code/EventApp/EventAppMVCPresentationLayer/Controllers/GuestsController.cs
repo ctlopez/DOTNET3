@@ -71,6 +71,124 @@ namespace EventAppMVCPresentationLayer.Controllers
             return View(guest);
         }
 
+        public PartialViewResult FullList()
+        {
+            IEnumerable<Guest> fullGuestList = new List<Guest>();
+            try
+            {
+                fullGuestList = _guestManager.GetGuests();
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            return PartialView("GuestListPartial", fullGuestList);
+        }
+
+        public PartialViewResult FirstFloor()
+        {
+            IEnumerable<Guest> fullGuestList = new List<Guest>();
+            try
+            {
+                fullGuestList = _guestManager.GetGuests();
+            }
+            catch (Exception)
+            {
+
+
+            }
+            List<Guest> firstFloorGuestList = new List<Guest>();
+
+            foreach (Guest g in fullGuestList)
+            {
+                try
+                {
+                    int roomNum = Int32.Parse(g.RoomID);
+                    if (roomNum >= 100 && roomNum <= 120)
+                    {
+                        firstFloorGuestList.Add(g);
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                    
+                }
+            }
+
+            return PartialView("GuestListPartial", firstFloorGuestList);
+        }
+
+        public PartialViewResult SecondFloor()
+        {
+            IEnumerable<Guest> fullGuestList = new List<Guest>();
+            try
+            {
+                fullGuestList = _guestManager.GetGuests();
+            }
+            catch (Exception)
+            {
+
+
+            }
+            List<Guest> secondFloorGuestList = new List<Guest>();
+
+            foreach (Guest g in fullGuestList)
+            {
+                try
+                {
+                    int roomNum = Int32.Parse(g.RoomID);
+                    if (roomNum >= 200 && roomNum <= 220)
+                    {
+                        secondFloorGuestList.Add(g);
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+            }
+
+            return PartialView("GuestListPartial", secondFloorGuestList);
+        }
+
+        public PartialViewResult ThirdFloor()
+        {
+            IEnumerable<Guest> fullGuestList = new List<Guest>();
+            try
+            {
+                fullGuestList = _guestManager.GetGuests();
+            }
+            catch (Exception)
+            {
+
+
+            }
+            List<Guest> thirdFloorGuestList = new List<Guest>();
+
+            foreach (Guest g in fullGuestList)
+            {
+                try
+                {
+                    int roomNum = Int32.Parse(g.RoomID);
+                    if (roomNum >= 300 && roomNum <= 320)
+                    {
+                        thirdFloorGuestList.Add(g);
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+            }
+
+            return PartialView("GuestListPartial", thirdFloorGuestList);
+        }
+
         //// GET: Guests/Create
         //public ActionResult Create()
         //{
