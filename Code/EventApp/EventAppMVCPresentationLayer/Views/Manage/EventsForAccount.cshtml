@@ -53,14 +53,14 @@
                     @Html.DisplayFor(modelItem => item.TotalPrice)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { Id = item.EventID }) |
-                    @if (Request.IsAuthenticated && User.IsInRole("Guest"))
+                    @Html.ActionLink("Details", "Details", new { Id = item.EventID })
+                    @if (Request.IsAuthenticated && User.IsInRole("Guest") && Convert.ToDateTime(item.Date) > System.DateTime.Now)
                     {
-                        @Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = User.Identity.Name, eventId = item.EventID }, null)
+                        <span> | </span>@Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = User.Identity.Name, eventId = item.EventID }, null)
                     }
-                    @if (Request.IsAuthenticated && User.IsInRole("Clerk"))
+                    @if (Request.IsAuthenticated && User.IsInRole("Clerk") && Convert.ToDateTime(item.Date) > System.DateTime.Now)
                     {
-                        @Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = Model.RoomNumber, eventId = item.EventID }, null)
+                        <span> | </span>@Html.ActionLink("Remove Tickets", "RemovePurchasedTickets", "Events", new { guestRoom = Model.RoomNumber, eventId = item.EventID }, null)
                     }
                     
                 </td>
